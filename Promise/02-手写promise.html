@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./promise.js"></script>
+</head>
+
+<body>
+    <script>
+        const p = new MyPromise((resolve, reject) => {
+            // resolve('ok')
+            // reject('error')
+            // throw 'err'
+            // setTimeout(() => {
+            //     resolve('ok')
+            // }, 2000);
+            console.log(1111)
+            resolve('ok')
+        })
+        let res = p.then(data => {
+            console.log(222)
+        }, err => {
+            console.warn(222)
+        })
+        console.log(333)
+    </script>
+</body>
+
+</html>

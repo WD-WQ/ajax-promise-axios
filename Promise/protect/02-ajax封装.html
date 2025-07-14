@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .content {
+            width: 200px;
+            height: 100px;
+            border: 1px solid black;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <span>
+        <button>promise封装ajax请求</button>
+        <div class="content"></div>
+    </span>
+    <script>
+        const btn = document.querySelector('button')
+        const result = document.querySelector('.content')
+
+        //封装为函数
+        const makeAjax = (method, url) => {
+            return new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest()
+                xhr.open(method, url)
+                xhr.send()
+                xhr.onreadystatechange = () => {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status >= 200 && xhr.status < 300) {
+                            resolve(xhr.response)
+                        }
+                        else {
+                            reject(xhr.status)
+                        }
+                    }
+                }
+            })
+        }
+
+        btn.addEventListener('click', () => {
+            makeAjax('GET', 'http://127.0.0.1:8000/promise')
+                .then(data => {
+                    result.innerHTML = data
+                }, err => {
+                    result.innerHTML = err
+                })
+        })
+    </script>
+</body>
+
+</html>
