@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button>抽奖</button>
+    <script>
+      const btn = document.querySelector("button");
+
+      btn.addEventListener("click", () => {
+        const p = new Promise((resolve, reject) => {
+          setTimeout(() => {
+            let i = Math.floor(Math.random() * 100) + 1;
+            if (i <= 50) {
+              resolve(i);
+            } else {
+              reject(i);
+            }
+          }, 1000);
+        });
+        p.then(
+          (value) => {
+            alert("恭喜你");
+          },
+          (reason) => {
+            alert("再接再厉");
+          }
+        );
+      });
+    </script>
+  </body>
+</html>

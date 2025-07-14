@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: space-around;
+      }
+      div {
+        width: 200px;
+        height: 100px;
+        margin: 10px 0;
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <span>
+      <button class="get">GET</button>
+      <div class="get-content"></div>
+    </span>
+    <span>
+      <button class="post">POST请求</button>
+      <div class="post-content"></div>
+    </span>
+    <span>
+      <button class="json">json数据处理</button>
+      <div class="json-content"></div>
+    </span>
+    <script>
+      const btn1 = document.querySelector(".get");
+      const result1 = document.querySelector(".get-content");
+      const btn2 = document.querySelector(".post");
+      const result2 = document.querySelector(".post-content");
+      const btn3 = document.querySelector(".json");
+      const result3 = document.querySelector(".json-content");
+      btn1.addEventListener("click", () => {
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "http:127.0.0.1:8000/server"); //get的请求体在路径中设置
+        xhr.send();
+        xhr.onreadystatechange = () => {
+          if (xhr.readyState === 4) {
+            if (xhr.status >= 200 && xhr.status < 300) {
+              console.log(xhr.response);
+              console.log(xhr.status);
+              console.log(xhr.statusText);
+              console.log(xhr.getAllResponseHeaders());
+              result1.innerHTML = xhr.response;
+            }
+          }
+        };
+      });
+
+      btn2.addEventListener("click", () => {
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://127.0.0.1:8000/server");
+        //设置请求头
+        xhr.setRequestHeader(
+          "Content-Type",
+          "application/x-www-form-urlencoded"
+        );
+        xhr.send("a=100&b=200"); //post的请求体在send中设置
+        xhr.onreadystatechange = () => {
+          if (xhr.readyState === 4) {
+            if (xhr.status >= 200 && xhr.status < 300) {
+              result2.innerHTML = xhr.response;
+            }
+          }
+        };
+      });
+
+      btn3.addEventListener("click", () => {
+        const xhr = new XMLHttpRequest();
+        //2.自动转换
+        xhr.responseType = 'json'
+        xhr.open("GET", "http:127.0.0.1:8000/json-server"); 
+        xhr.send();
+        xhr.onreadystatechange = () => {
+          if (xhr.readyState === 4) {
+            if (xhr.status >= 200 && xhr.status < 300) {
+              // result3.innerHTML = xhr.response
+              
+              //传递过来的是json字符串，需要自己进行转换
+              //1.手动转换
+              // console.log(JSON.parse(xhr.response))
+
+              //2.自动转换结果
+              console.log(xhr.response)
+            }
+          }
+        };
+      });
+    </script>
+  </body>
+</html>
