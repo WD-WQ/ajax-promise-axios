@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h2 class="page-header">基本使用</h2>
+        <button class="btn btn-primary">发送GET请求</button>
+        <button class="btn btn-warning">发送POST请求</button>
+        <button class="btn btn-success">发送PUT请求</button>
+        <button class="btn btn-danger">发送DELETE请求</button>
+    </div>
+    <script>
+        const btns = document.querySelectorAll('.btn')
+        btns[0].addEventListener('click', () => {
+            axios({
+                method: 'GET',
+                url: 'http://localhost:8000/posts/2'
+            })
+                .then(data => {
+                    console.log(data)
+                })
+        })
+        btns[1].addEventListener('click', () => {
+            axios({
+                method: 'POST',
+                url: 'http://localhost:8000/posts',
+                //请求体
+                data: {
+                    title: '易烊千玺要开演唱会了',
+                    views: 300
+                }
+            })
+                .then(data => {
+                    console.log(data)
+                })
+        })
+        btns[2].addEventListener('click', () => {
+            axios({
+                method: 'PUT',
+                url: 'http://localhost:8000/posts/2',
+                //请求体
+                data: {
+                    title: 'hhhhhhhhh',
+                    views: 300
+                }
+            })
+                .then(data => {
+                    console.log(data)
+                })
+        })
+        btns[3].addEventListener('click', () => {
+            axios({
+                method: 'DELETE',
+                url: 'http://localhost:8000/posts/2',
+            })
+                .then(data => {
+                    console.log(data)
+                })
+        })
+    </script>
+</body>
+
+</html>
